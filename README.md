@@ -2,7 +2,7 @@
 
 **公众号文章接口 · 公众号历史文章 · 公众号阅读数在看数 · 视频号数据 API · 微信搜一搜 · 微信指数。**
 
-这个仓库是 [okdata](https://okdata.online/zh/?src=gh-wechat-api) 的微信公众号、微信视频号、微信搜一搜接口示例：23 个接口在线可用、6 个即将上线，一个 API Key 调用，按次计费（$0.015 起），失败不扣费。不用登录平台账号，不用 Cookie，不开浏览器，所以也不存在账号被风控的问题。
+这个仓库是 [okdata](https://okdata.online/zh/?src=gh-wechat-api) 的微信公众号、微信视频号、微信搜一搜接口示例：29 个接口在线可用，一个 API Key 调用，按次计费（$0.015 起），失败不扣费。不用登录平台账号，不用 Cookie，不开浏览器，所以也不存在账号被风控的问题。
 
 [免费注册拿 Key（送 $0.1 试用额度）](https://okdata.online/zh/signup/?src=gh-wechat-api) · [全部接口文档](https://okdata.online/zh/apis/?src=gh-wechat-api) · [接入 AI（MCP）](https://okdata.online/zh/mcp/?src=gh-wechat-api)
 
@@ -19,7 +19,7 @@
 | [公众号文章评论](https://okdata.online/zh/apis/wechat_mp/articles/comments/list/) | 按文章链接取公众号文章的精选评论：内容、评论者、点赞、回复数、发布时间、IP 属地和是否置顶。评论的 id 可传给 wechat_mp.comments.replies.list 取回复。 | $0.02 / 次 | `GET /v1/wechat_mp/articles/comments/list` |
 | [公众号文章互动数据](https://okdata.online/zh/apis/wechat_mp/articles/metrics/) | 按文章链接取这篇文章此刻的数字：阅读、点赞、在看（ext.recommends）、分享、收藏和评论。只有数字：标题和正文用 wechat_mp.articles.get 取。 | $0.02 / 次 | `GET /v1/wechat_mp/articles/metrics` |
 | [公众号评论回复](https://okdata.online/zh/apis/wechat_mp/comments/replies/list/) | 按评论 ID 和文章链接取公众号文章一条评论下面的回复：内容、回复者、点赞、发布时间和 IP 属地。只返回第一批，不翻页。 | $0.02 / 次 | `GET /v1/wechat_mp/comments/replies/list` |
-| [公众号主体信息](https://okdata.online/zh/apis/wechat_mp/accounts/owner/get/) | 按原始 ID 取公众号背后的主体：公司、机构或个人的名称、类型、登记证照号码和国家或地区，认证状态、认证类型和日期，公众号注册日期，以及授权过的第三方服务商。 | 即将上线 | `GET /v1/wechat_mp/accounts/owner/get` |
+| [公众号主体信息](https://okdata.online/zh/apis/wechat_mp/accounts/owner/get/) | 按原始 ID 取公众号背后的主体：公司、机构或个人的名称、类型、登记证照号码和国家或地区，认证状态、认证类型和日期，公众号注册日期，以及授权过的第三方服务商。 | $0.15 / 次 | `GET /v1/wechat_mp/accounts/owner/get` |
 
 ### 微信视频号
 
@@ -39,7 +39,7 @@
 | [视频号作品互动数据](https://okdata.online/zh/apis/wechat_channels/videos/metrics/) | 按作品 ID 取视频号作品最近的数字：点赞、评论、转发和收藏，带作品描述和发布账号。数字可能是几小时前的，ext.counted_at 写明取数时间。比取整个作品（wechat_channels.videos.get）便宜。 | $0.015 / 次 | `GET /v1/wechat_channels/videos/metrics` |
 | [视频号账号信息（备用版）（备用版）](https://okdata.online/zh/apis/wechat_channels/backup/users/get/) | wechat_channels.users.get 的备用版，另一来源：参数和返回相同，不给作品数。 | $0.03 / 次 | `GET /v1/wechat_channels/backup/users/get` |
 | [视频号账号作品（备用版）（备用版）](https://okdata.online/zh/apis/wechat_channels/backup/users/videos/list/) | wechat_channels.users.videos.list 的备用版，另一来源：参数和返回相同，每页 15 条（正在直播时第一条是直播）。 | $0.06 / 次 | `GET /v1/wechat_channels/backup/users/videos/list` |
-| [视频号视频搜索（备用版）（备用版）](https://okdata.online/zh/apis/wechat_channels/backup/videos/search/) | wechat_channels.videos.search 的备用版，另一来源：参数和返回相同，不带收藏数。 | 即将上线 | `GET /v1/wechat_channels/backup/videos/search` |
+| [视频号视频搜索（备用版）（备用版）](https://okdata.online/zh/apis/wechat_channels/backup/videos/search/) | wechat_channels.videos.search 的备用版，另一来源：参数和返回相同，另带评论数和转发数（没有收藏数）。 | $0.15 / 次 | `GET /v1/wechat_channels/backup/videos/search` |
 
 ### 微信搜一搜
 
@@ -47,10 +47,10 @@
 |---|---|---|---|
 | [微信搜一搜综合搜索](https://okdata.online/zh/apis/wechat/posts/search/) | 按关键词取微信搜一搜结果：公众号文章和视频号视频混排（type 标明是哪种），可按相关、最新或最热排、按发布时间筛，也可只搜文章或只搜视频。标题或描述、来源账号名称、发布时间；文章带链接（部分带阅读数档位），视频带点赞数和可传给 wechat_channels.videos.get 的 export/ 加密 ID。搜一搜不给账号 ID。 | $0.02 / 次 | `GET /v1/wechat/posts/search` |
 | [微信公众号实时查找](https://okdata.online/zh/apis/wechat/accounts/search/) | 按关键词在微信搜一搜里实时找公众号和服务号，最像的排前面（后面可能跟着不太相关的）：原始 ID、微信号、名称、简介、头像、是否认证和认证主体、原创文章数。按次计费；不带粉丝和阅读数（要估计值用 wechat_mp.accounts.search）。 | $0.02 / 次 | `GET /v1/wechat/accounts/search` |
-| [微信指数](https://okdata.online/zh/apis/wechat/index/keywords/history/) | 关键词最近 30 天的微信指数，一天一个数（points[].composite_index）。微信指数是微信综合搜一搜、文章、朋友圈等算出的热度分，不是搜索次数，不能和抖音、小红书的指数比；日期是中国时间（UTC+8）的自然日。 | 即将上线 | `GET /v1/wechat/index/keywords/history` |
-| [微信搜一搜推荐词](https://okdata.online/zh/apis/wechat/keywords/related/) | 微信搜一搜在搜索框下给一个关键词的联想推荐词，按它列出的顺序，一次约 10 个。只有词和名次，没有指数。 | 即将上线 | `GET /v1/wechat/keywords/related` |
-| [微信小程序搜索](https://okdata.online/zh/apis/wechat/miniprograms/search/) | 按关键词在微信搜一搜里找小程序，取第一页（约 25 个）：名称、简介、图标、原始 ID 和 AppID、主体和是否认证、平台显示的最近使用人数、是否小游戏。 | 即将上线 | `GET /v1/wechat/miniprograms/search` |
-| [微信搜一搜综合搜索（备用版）（备用版）](https://okdata.online/zh/apis/wechat/backup/posts/search/) | wechat.posts.search 的备用版，另一来源：参数和返回相同。 | 即将上线 | `GET /v1/wechat/backup/posts/search` |
+| [微信指数](https://okdata.online/zh/apis/wechat/index/keywords/history/) | 关键词最近 30 天的微信指数，一天一个数（points[].composite_index）。微信指数是微信综合搜一搜、文章、朋友圈等算出的热度分，不是搜索次数，不能和抖音、小红书的指数比；日期是中国时间（UTC+8）的自然日。 | $0.15 / 次 | `GET /v1/wechat/index/keywords/history` |
+| [微信搜一搜推荐词](https://okdata.online/zh/apis/wechat/keywords/related/) | 微信搜一搜在搜索框下给一个关键词的联想推荐词，按它列出的顺序，一次约 9 个（不含关键词本身）。只有词和名次，没有指数。 | $0.15 / 次 | `GET /v1/wechat/keywords/related` |
+| [微信小程序搜索](https://okdata.online/zh/apis/wechat/miniprograms/search/) | 按关键词在微信搜一搜里找小程序，取第一页（约 25 个）：名称、简介、图标、原始 ID 和 AppID（部分品牌小程序不显示）、主体和是否认证、平台显示的最近使用人数（取档位下限，如 10万+ 记为 100000）、是否小游戏。 | $0.15 / 次 | `GET /v1/wechat/miniprograms/search` |
+| [微信搜一搜综合搜索（备用版）（备用版）](https://okdata.online/zh/apis/wechat/backup/posts/search/) | wechat.posts.search 的备用版，另一来源：参数和返回相同。 | $0.15 / 次 | `GET /v1/wechat/backup/posts/search` |
 
 ## 快速开始
 
@@ -107,7 +107,7 @@ Cursor、Cherry Studio、WorkBuddy 等支持远程 MCP 的客户端：
 
 ## English
 
-Examples for the okdata WeChat Official Accounts, WeChat Channels, WeChat Search API: 23 live endpoints behind one API key, pay per call from $0.015, failed calls free, no platform login or cookies. Sign up at https://okdata.online/signup/?src=gh-wechat-api, docs at https://okdata.online/apis/, MCP at https://okdata.online/mcp/.
+Examples for the okdata WeChat Official Accounts, WeChat Channels, WeChat Search API: 29 live endpoints behind one API key, pay per call from $0.015, failed calls free, no platform login or cookies. Sign up at https://okdata.online/signup/?src=gh-wechat-api, docs at https://okdata.online/apis/, MCP at https://okdata.online/mcp/.
 
 ## License
 
