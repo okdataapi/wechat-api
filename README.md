@@ -68,6 +68,27 @@ Python 版在 [examples/quickstart.py](examples/quickstart.py)（只用标准库
 
 返回统一的结构：列表在 `data.items`，下一页用 `page.next_cursor` 传回 `cursor`，这次扣了多少钱在 `meta.billing.amount`，平台不提供的字段为 null 并在 `meta.unavailable` 里写明原因。
 
+公众号历史文章不用扫码登录，一条命令取最新一页（这里是人民日报，原始 ID `gh_363b924965e9`）：
+
+```bash
+curl -G "https://api.okdata.online/v1/wechat_mp/accounts/articles/list" \
+  -H "Authorization: Bearer $OKDATA_API_KEY" \
+  --data-urlencode 'id=gh_363b924965e9'
+```
+
+### 真实输出（2026-11-25 实跑）
+
+当天取回 10 篇，最新三篇（发布时间是 UTC）：
+
+```console
+2026-11-25 01:20  现场高清大图！神舟二十四号发射圆满成功
+2026-11-24 23:35  男子手滑点错账户，100万元转错人了！急得立马报警，民警一句话点醒他
+2026-11-24 22:34  领命出征！
+花费 $0.02
+```
+
+完整响应在 [examples/wechat_mp.accounts.articles.list.json](examples/wechat_mp.accounts.articles.list.json)（10 篇，含标题、摘要、封面、发布时间和文章链接）。要全文，把文章链接传给 `wechat_mp.articles.get`。
+
 ## 让 AI 直接用（MCP）
 
 Claude Code：
